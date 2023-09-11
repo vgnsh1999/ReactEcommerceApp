@@ -1,19 +1,29 @@
 import React from "react";
-
 import ProductItem from "./ProductItem";
-import ProductList from "./ProductList";
-import TotalAmount from "./TotalAmount";
-
+import Card from "../UI/Card";
+import "./Products.css";
 const Products = (props) => {
-    const productArray = props.items;
-    console.log(props.items)
-    return (
-        <div>
-        <ProductList items={productArray} />
-        <TotalAmount sellingPrice={productArray}/>
-        </div>
+  const updatedData = (newUpdatedData) => {
+    const productData = newUpdatedData;
+    props.onUpdatedData(productData);
+  };
 
-    );
+  return (
+    <Card className="products">
+      {props.items.map((product) => {
+        return (
+          <ProductItem
+            onSaveData={updatedData}
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            amount={product.amount}
+            date={product.date}
+          />
+        );
+      })}
+    </Card>
+  );
 };
 
 export default Products;
